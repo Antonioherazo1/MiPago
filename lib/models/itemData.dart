@@ -12,12 +12,13 @@ class ItemData extends ChangeNotifier {
   int cicloPago;
   bool ingresoFijoExist = false;
   String factorPor = 'Valor hora';
+  int indexIngFijo = 0;
 
   List<ItemModel> incomeList = [];
   List<ItemModel> egressList = [];
 
-  void addIncomeItem(String newNameItem, double newFactorItem,
-      int factorPor, String columnFactor) {
+  void addIncomeItem(String newNameItem, double newFactorItem, int factorPor,
+      String columnFactor) {
     //Se crea un objeto tipo ItemModel y se le
     // pasan los parametros ingresados en la función
     final newItem = ItemModel(

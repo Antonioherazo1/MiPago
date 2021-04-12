@@ -7,6 +7,7 @@ class ItemModel {
   int total = 0;
   int factorPor;
   String columnFactor;
+  bool fixItem = false; 
 
-  ItemModel({this.name, this.factor, this.factorPor, this.columnFactor});
+  ItemModel({this.name, this.factor, this.factorPor, this.columnFactor, this.fixItem});
 }
