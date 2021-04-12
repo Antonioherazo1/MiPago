@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mi_pago/models/itemData.dart';
 import 'package:mi_pago/models/itemModel.dart';
+import 'package:provider/provider.dart';
 
 class ItemCreator extends StatefulWidget {
   final ItemModel item;
@@ -68,47 +70,54 @@ class _ItemCreatorState extends State<ItemCreator> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                SizedBox(
-                  width: 80.0,
-                  height: 50.0,
-                  child: TextField(
-                    controller: txtController,
-                    style: TextStyle(fontSize: 30.0),
-                    textAlignVertical: TextAlignVertical.top,
-                    textAlign: TextAlign.center,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.transparent),
-                          borderRadius: BorderRadius.circular(20)),
-                      filled: true,
-                      fillColor: Colors.white,
-                    ),
-                    onChanged: widget.textFieldCallback,
-                  ),
-                ),
+                widget.item.fixItem
+                    ? Text(
+                        '${widget.item.value}',
+                        style: TextStyle(fontSize: 30.0),
+                      )
+                    : TextFieldItem(
+                        txtController: txtController, widget: widget),
                 Text('${widget.item.columnFactor}'),
-                // Column(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     // Text('${widget.item.factor}'),
-                //     Text(widget.item.factor == 1
-                //         ? 'horas'
-                //         : widget.item.factor.toString()),
-                //     Text(widget.item.factor == 1 ? '=' : 'x'),
-                //     Text(widget.item.value == 56
-                //         ? '7 Dias'
-                //         : widget.item.value == 112
-                //             ? '15 Dias'
-                //             : '30 Dias')
-                //   ],
-                // ),
                 Text("=", style: TextStyle(fontSize: 50.0)),
                 Text('${widget.item.total}', style: TextStyle(fontSize: 40.0))
               ],
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class TextFieldItem extends StatelessWidget {
+  const TextFieldItem({
+    Key key,
+    @required this.txtController,
+    @required this.widget,
+  }) : super(key: key);
+
+  final TextEditingController txtController;
+  final ItemCreator widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 80.0,
+      height: 50.0,
+      child: TextField(
+        controller: txtController,
+        style: TextStyle(fontSize: 30.0),
+        textAlignVertical: TextAlignVertical.top,
+        textAlign: TextAlign.center,
+        keyboardType: TextInputType.number,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.transparent),
+              borderRadius: BorderRadius.circular(20)),
+          filled: true,
+          fillColor: Colors.white,
+        ),
+        onChanged: widget.textFieldCallback,
       ),
     );
   }
